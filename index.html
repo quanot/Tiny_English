@@ -146,6 +146,9 @@ button:focus-visible{ outline:4px solid #8E6BE8; outline-offset:3px; }
 .cap i{ display:block; font-style:normal; opacity:.8; }
 @keyframes wobble{ 20%{ transform:translateX(-10px); } 40%{ transform:translateX(10px); } 60%{ transform:translateX(-6px); } 80%{ transform:translateX(6px); } }
 
+/* picture question */
+.picQ{ font-size:clamp(48px,12vw,84px); line-height:1; }
+
 /* done */
 .done{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; text-align:center; }
 .trophy{ font-size:clamp(110px,30vmin,200px); line-height:1; animation:bob 1.6s ease-in-out infinite; }
@@ -234,6 +237,8 @@ button:focus-visible{ outline:4px solid #8E6BE8; outline-offset:3px; }
 .ovLabel{ font-weight:700; color:var(--card-ink); font-size:20px; }
 .ovWord.long{ font-size:clamp(24px,6vw,36px); border-radius:24px; text-align:center; display:flex; flex-wrap:wrap; gap:0 .4em; justify-content:center; padding:4px 16px; }
 
+.pronPill{ position:relative; z-index:1; background:#D9F7EE; color:var(--card-ink); border:3px solid var(--card-ink); border-radius:24px; padding:0 18px; font-size:clamp(20px,5vw,30px); font-weight:600; text-align:center; }
+
 /* confetti */
 .confetti{ position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:80; }
 .confetti i{ position:absolute; top:-20px; width:14px; height:14px; border-radius:4px; animation:fall 1.7s ease-in forwards; }
@@ -261,8 +266,41 @@ var NUMW=['One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten'];
 var NUMVI=['Số một','Số hai','Số ba','Số bốn','Số năm','Số sáu','Số bảy','Số tám','Số chín','Số mười'];
 var FILL={circle:'#FF8A7A',square:'#5EC8F2',triangle:'#FFD04D',star:'#FFB43B',heart:'#FF8FC7',rectangle:'#B79BFF'};
 var PRAISE=['Great job!','Yay!','You did it!','Super!','Well done!','Hooray!'];
-var ACT={animals:'jump',fruits:'spin',colors:'pulse',numbers:'pulse',shapes:'boing',vehicles:'drive',abc:'wiggle'};
-var BURST={animals:['🎵','✨','💖'],fruits:['😋','✨','💖'],colors:['🎨','✨','💫'],numbers:['⭐','✨','🌟'],shapes:['✨','💫','⭐'],vehicles:['💨','⭐','✨'],abc:['🔤','✨','🎶']};
+var ACT={animals:'jump',fruits:'spin',colors:'pulse',numbers:'pulse',shapes:'boing',vehicles:'drive',abc:'wiggle',vnabc:'wiggle'};
+var BURST={animals:['🎵','✨','💖'],fruits:['😋','✨','💖'],colors:['🎨','✨','💫'],numbers:['⭐','✨','🌟'],shapes:['✨','💫','⭐'],vehicles:['💨','⭐','✨'],abc:['🔤','✨','🎶'],vnabc:['🔤','✨','🎶']};
+
+var VN=[
+ {l:'A',n:'a',w:'Áo',e:'👕',en:'shirt'},
+ {l:'Ă',n:'ă',w:'Ăn cơm',e:'🍚',en:'eat rice'},
+ {l:'Â',n:'â',w:'Ấm trà',e:'🫖',en:'teapot'},
+ {l:'B',n:'bờ',w:'Bóng',e:'⚽',en:'ball'},
+ {l:'C',n:'cờ',w:'Cá',e:'🐟',en:'fish'},
+ {l:'D',n:'dờ',w:'Dưa hấu',e:'🍉',en:'watermelon'},
+ {l:'Đ',n:'đờ',w:'Đèn',e:'💡',en:'lamp'},
+ {l:'E',n:'e',w:'Em bé',e:'👶',en:'baby'},
+ {l:'Ê',n:'ê',w:'Ếch',e:'🐸',en:'frog'},
+ {l:'G',n:'gờ',w:'Gà',e:'🐔',en:'chicken'},
+ {l:'H',n:'hờ',w:'Hoa',e:'🌸',en:'flower'},
+ {l:'I',n:'i',w:'Im lặng',e:'🤫',en:'quiet'},
+ {l:'K',n:'ca',w:'Kẹo',e:'🍬',en:'candy'},
+ {l:'L',n:'lờ',w:'Lá',e:'🍃',en:'leaf'},
+ {l:'M',n:'mờ',w:'Mèo',e:'🐱',en:'cat'},
+ {l:'N',n:'nờ',w:'Nho',e:'🍇',en:'grapes'},
+ {l:'O',n:'o',w:'Ong',e:'🐝',en:'bee'},
+ {l:'Ô',n:'ô',w:'Ô tô',e:'🚗',en:'car'},
+ {l:'Ơ',n:'ơ',w:'Ớt',e:'🌶️',en:'chili'},
+ {l:'P',n:'pờ',w:'Pin',e:'🔋',en:'battery'},
+ {l:'Q',n:'quờ',w:'Quả cam',e:'🍊',en:'orange'},
+ {l:'R',n:'rờ',w:'Rùa',e:'🐢',en:'turtle'},
+ {l:'S',n:'sờ',w:'Sao',e:'⭐',en:'star'},
+ {l:'T',n:'tờ',w:'Táo',e:'🍎',en:'apple'},
+ {l:'U',n:'u',w:'Uống nước',e:'🥤',en:'drink water'},
+ {l:'Ư',n:'ư',w:'Ức gà',e:'🍗',en:'chicken meat'},
+ {l:'V',n:'vờ',w:'Vịt',e:'🦆',en:'duck'},
+ {l:'X',n:'xờ',w:'Xe đạp',e:'🚲',en:'bicycle'},
+ {l:'Y',n:'i dài',w:'Y tá',e:'👩‍⚕️',en:'nurse'}
+].map(function(x){ x.vi=x.en; return x; });
+var PRAISE_VI=['Giỏi quá!','Hoan hô!','Con làm được rồi!','Tuyệt vời!'];
 
 var CATS=[
  {id:'animals',name:'Animals',icon:'🐶',color:'#FF8A7A',items:[
@@ -286,7 +324,8 @@ var CATS=[
   {w:'Boat',vi:'Con thuyền',e:'⛵',s:'Splash!'},{w:'Bike',vi:'Xe đạp',e:'🚲',s:'Ring ring!'},{w:'Truck',vi:'Xe tải',e:'🚚',s:'Vroom vroom!'},{w:'Fire truck',vi:'Xe cứu hỏa',e:'🚒',s:'Nee naw nee naw!'},
   {w:'Helicopter',vi:'Trực thăng',e:'🚁',s:'Whirr!'},{w:'Rocket',vi:'Tên lửa',e:'🚀',s:'3, 2, 1, blast off!'}]},
  {id:'abc',name:'ABC',icon:'🔤',color:'#FF8FC7',items:
-  LETTERS.map(function(l,i){ return {l:l,w:ABC_WORDS[i][0],e:ABC_WORDS[i][1],vi:ABC_WORDS[i][2]}; })}
+  LETTERS.map(function(l,i){ return {l:l,w:ABC_WORDS[i][0],e:ABC_WORDS[i][1],vi:ABC_WORDS[i][2]}; })},
+ {id:'vnabc',name:'Chữ cái',icon:'🔡',color:'#7FD6C2',items:VN}
 ];
 
 /* ================= STATE ================= */
@@ -433,7 +472,7 @@ if('speechSynthesis' in window){ pickVoice(); speechSynthesis.onvoiceschanged=pi
 function speak(text,opts){
   opts=opts||{};
   return new Promise(function(res){
-    if(muted||!('speechSynthesis' in window)){ setTimeout(res,500); return; }
+    if(muted||!('speechSynthesis' in window)||(opts.vi&&!viVoice)){ setTimeout(res,500); return; }
     try{
       var done=false, fin=function(){ if(!done){ done=true; res(); } };
       var u=new SpeechSynthesisUtterance(text);
@@ -483,13 +522,13 @@ function heardMatch(heard,it){
   }
   return false;
 }
-function listen(ms){
+function listen(ms,lang){
   return new Promise(function(res){
     var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
     if(!SR){ setTimeout(function(){ res({supported:false,heard:[]}); },ms); return; }
     try{
       var r=new SR(), heard=[], done=false;
-      r.lang='en-US'; r.interimResults=false; r.maxAlternatives=5;
+      r.lang=(lang==='vi'?'vi-VN':'en-US'); r.interimResults=false; r.maxAlternatives=5;
       var fin=function(sup){ if(done) return; done=true; try{ r.stop(); }catch(e){} res({supported:sup,heard:heard}); };
       r.onresult=function(e){
         for(var i=0;i<e.results.length;i++) for(var j=0;j<e.results[i].length;j++) heard.push(e.results[i][j].transcript);
@@ -576,6 +615,7 @@ function art(cat,it,mode){
     case 'colors': return '<div class="blob" style="background:'+it.c+'"></div>';
     case 'shapes': return shape(it.k);
     case 'numbers': return '<div class="num">'+it.n+'</div>'+(mode==='card'?'<div class="stars">'+new Array(it.n+1).join('<span>⭐</span>')+'</div>':'');
+    case 'vnabc':
     case 'abc': return '<div class="letter">'+it.l+it.l.toLowerCase()+'</div>'+(mode==='card'?'<span class="emo sm">'+it.e+'</span>':'');
     default: return '<span class="emo">'+it.e+'</span>';
   }
@@ -616,7 +656,7 @@ function renderHome(){
   app.innerHTML=header('Tiny Talk','🌈',false)+
    '<main class="home"><button class="hero" id="hero" aria-label="Say hello"><span class="duck">🐥</span><span class="bubble">Hello!</span></button>'+
    '<div class="grid">'+CATS.map(function(c,i){
-      return '<button class="tile stk'+(c.id==='abc'?' wide':'')+'" style="--c:'+c.color+';--i:'+i+'" data-id="'+c.id+'"><span class="emo">'+c.icon+'</span>'+c.name+'</button>';
+      return '<button class="tile stk'+((c.id==='abc'||c.id==='vnabc')?' wide':'')+'" style="--c:'+c.color+';--i:'+i+'" data-id="'+c.id+'"><span class="emo">'+c.icon+'</span>'+c.name+'</button>';
    }).join('')+
    '<button class="tile stk wide" id="readTile" style="--c:#9BE15D;--i:7"><span class="emo">📖</span>Reading</button></div></main>';
   $('#hero').onclick=function(){
@@ -634,13 +674,14 @@ function openCat(id){
   stopAll();
   state.cat=CATS.findIndex(function(c){ return c.id===id; });
   state.idx=0; state.screen='learn'; render();
+  if(id==='vnabc'){ pickVoice(); if(!viVoice) toast('Thiết bị này chưa có giọng đọc tiếng Việt, nên chỉ hiện chữ. Hãy cài giọng Việt trong phần Cài đặt giọng nói của máy.'); }
   perform(CATS[state.cat],CATS[state.cat].items[0],begin());
 }
 function resetStars(){ document.querySelectorAll('.stars span').forEach(function(s){ s.classList.remove('pop'); }); }
 function setSoundText(t){ var s=$('.sound'); if(s){ s.textContent=t||''; bump(s); } }
-async function echoPause(id){
-  setSoundText('🎤 Your turn!');
-  await speak('Your turn!');
+async function echoPause(id,vn){
+  setSoundText(vn?'🎤 Đến lượt con!':'🎤 Your turn!');
+  await speak(vn?'Đến lượt con!':'Your turn!',{vi:!!vn});
   if(id!==sayId) return;
   await wait(2200);
 }
@@ -663,6 +704,12 @@ async function perform(cat,it,id,opt){
       await speak(SAY[it.l]+'. '+SAY[it.l]+' is for '+it.w+'.'); if(!alive()) return;
       if(opt.echo){ await echoPause(id); if(!alive()) return; }
       sfx.sparkle(); await wait(500); if(!alive()) return;
+    }else if(cat.id==='vnabc'){
+      await speak(it.n,{vi:true}); if(!alive()) return;
+      if(it.s){ await wait(150); await speak(it.s,{vi:true}); if(!alive()) return; }
+      await wait(150); await speak(it.w,{vi:true}); if(!alive()) return;
+      sfx.sparkle();
+      if(opt.echo){ await echoPause(id,true); if(!alive()) return; setSoundText('= '+it.en); }
     }else{
       await speak(it.w+'!'); if(!alive()) return;
       if(opt.echo){ await echoPause(id); if(!alive()) return; }
@@ -671,7 +718,7 @@ async function perform(cat,it,id,opt){
       await wait(d*1000+150); if(!alive()) return;
       if(it.s){ await speak(it.s,{pitch:1.4}); if(!alive()) return; }
     }
-    if(viOn && viVoice){ await speak(it.vi,{vi:true}); }
+    if(cat.id!=='vnabc' && viOn && viVoice){ await speak(it.vi,{vi:true}); }
   }finally{
     if(alive()) talk(false);
   }
@@ -695,7 +742,8 @@ function renderLearn(){
     '<button class="card" id="card" style="--c:'+cat.color+'" aria-label="'+it.w+'">'+
       '<div class="ring"></div><div class="ring r2"></div>'+
       '<div class="art">'+art(cat,it,'card')+'</div>'+
-      '<div class="word">'+it.w+'</div><div class="viPill">'+it.vi+'</div><div class="sound">'+(it.s||'')+'</div></button>'+
+      '<div class="word">'+it.w+'</div>'+
+      (cat.id==='vnabc'?'<div class="pronPill">Đọc: '+it.n+(it.s?' · Âm: '+it.s:'')+'</div><div class="sound">= '+it.en+'</div>':'<div class="viPill">'+it.vi+'</div><div class="sound">'+(it.s||'')+'</div>')+'</button>'+
     '<button class="arrow stk" id="next" aria-label="Next">▶</button>'+
    '</main>'+
    '<div class="dots">'+cat.items.map(function(_,i){ return '<i class="'+(i===state.idx?'on':'')+'"></i>'; }).join('')+'</div>'+
@@ -747,8 +795,26 @@ async function startWatch(){
 
 /* ---- say it: speak-along with the microphone ---- */
 function closeOverlay(){ var o=$('#ov'); if(o){ o.remove(); stopAll(); clearActive(); } }
+function plain(s){ return String(s).toLowerCase().replace(/đ/g,'d').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim(); }
+function vnMatch(heard,it){
+  var first=plain(it.w).split(' ')[0], full=plain(it.w), nm=plain(it.n);
+  for(var h=0;h<heard.length;h++){
+    var s=plain(heard[h]);
+    if(s.indexOf(full)>-1||s.indexOf(first)>-1||(nm.length>=2&&s.split(' ').indexOf(nm)>-1)) return true;
+    var toks=s.split(' ');
+    for(var k=0;k<toks.length;k++) if(first.length>=3&&toks[k]&&lev(toks[k],first)<=1) return true;
+  }
+  return false;
+}
 function sayAlong(){
   var cat=CATS[state.cat], it=cat.items[state.idx];
+  if(cat.id==='vnabc'){
+    micOverlay({lang:'vi', color:cat.color, artHtml:art(cat,it,'choice'), textHtml:esc(it.w),
+      label:'Đọc: '+it.n+(it.s?' · Âm: '+it.s:''),
+      model:it.n+'. '+(it.s?it.s+'. ':'')+it.w+'. Con đọc nhé!',
+      match:function(h){ return vnMatch(h,it); }, okSay:'Đúng rồi! '+it.w+'! Con giỏi quá!'});
+    return;
+  }
   micOverlay({color:cat.color, artHtml:art(cat,it,'choice'), textHtml:esc(it.w), vi:it.vi,
     model:'Say '+it.w+'!', match:function(h){ return heardMatch(h,it); }, okSay:'Yes! '+it.w+'! Great talking!'});
 }
@@ -762,19 +828,25 @@ function qText(cat,t,mode){
     case 'numbers': return 'Find number '+t.w+'!';
     case 'shapes': return 'Find the '+t.w+'!';
     case 'abc': return 'Find the letter '+t.l+'!';
+    case 'vnabc': return 'Tìm chữ '+t.l+'!';
     default: return 'Where is the '+t.w+'?';
   }
 }
-function qSpeech(cat,t,mode){
+function qSpeech(cat,t,mode,qt){
   if(mode==='listen') return qText(cat,t,mode);
+  if(qt==='pic'&&cat.id==='abc') return t.w+'. Which letter does '+t.w+' start with?';
+  if(qt==='pic'&&cat.id==='vnabc') return t.w+'. '+t.w+' bắt đầu bằng chữ nào?';
   if(cat.id==='abc') return 'Find the letter '+SAY[t.l]+'!';
+  if(cat.id==='vnabc') return 'Tìm chữ '+t.n+'!';
   return qText(cat,t,mode);
 }
 function startQuiz(mode){
   stopAll();
   var cat=CATS[state.cat];
   var total=Math.min(5,cat.items.length);
-  state.quiz={mode:mode||'find',i:0,total:total,targets:shuffle(cat.items).slice(0,total),score:0,locked:false,choices:[],repeat:null};
+  state.quiz={mode:mode||'find',i:0,total:total,targets:shuffle(cat.items).slice(0,total),score:0,locked:false,choices:[],repeat:null,types:[]};
+  var LC=(cat.id==='abc'||cat.id==='vnabc');
+  for(var ti=0;ti<total;ti++) state.quiz.types.push(LC?(ti%2===0?'hear':'pic'):'find');
   state.screen='quiz'; render();
 }
 function askQuestion(cat,t,mode){
@@ -783,8 +855,14 @@ function askQuestion(cat,t,mode){
     var d=itemSound(cat,t);
     setTimeout(function(){ if(id===sayId) speak(qSpeech(cat,t,mode)); },d*1000+250);
   }else{
-    speak(qSpeech(cat,t,mode));
+    speak(qSpeech(cat,t,mode,state.quiz.types[state.quiz.i]),{vi:cat.id==='vnabc'});
   }
+}
+function promptInner(cat,t,q){
+  var qt=q.types[q.i], vn=(cat.id==='vnabc');
+  if(qt==='hear') return '<span class="spk">🔊</span>'+(vn?'Nghe nhé!':'Listen!');
+  if(qt==='pic') return '<span class="spk">🔊</span><span class="picQ">'+t.e+'</span>';
+  return '<span class="spk">'+(q.mode==='listen'?'👂':'🔊')+'</span>'+qText(cat,t,q.mode);
 }
 function renderQuiz(){
   var cat=CATS[state.cat], q=state.quiz, t=q.targets[q.i];
@@ -794,7 +872,7 @@ function renderQuiz(){
   app.innerHTML=header(cat.name,cat.icon,true)+
    '<main class="quiz">'+
     '<div class="progress">'+q.targets.map(function(_,k){ return '<i class="'+(k<q.score?'on':'')+'">⭐</i>'; }).join('')+'</div>'+
-    '<button class="prompt stk" id="prompt"><span class="spk">'+(q.mode==='listen'?'👂':'🔊')+'</span>'+qText(cat,t,q.mode)+'</button>'+
+    '<button class="prompt stk" id="prompt">'+promptInner(cat,t,q)+'</button>'+
     '<div class="choices">'+q.choices.map(function(c,i){
        return '<button class="choice stk" data-i="'+i+'" aria-label="'+(c.w||'')+'">'+art(cat,c,'choice')+'</button>';
     }).join('')+'</div></main>';
@@ -821,7 +899,11 @@ function choose(i,btn){
       line='Yes! '+t.w+(cat.id==='animals'?' says ':' goes ')+snd(t)+'!';
       setTimeout(function(){ itemSound(cat,t); },500);
     }
-    speak(line);
+    var VNQ=(cat.id==='vnabc');
+    var isPic=(q.types[q.i]==='pic');
+    if(VNQ) line=(isPic?'Đúng rồi! '+t.w+' bắt đầu bằng chữ '+t.n+'. ':'Đúng rồi! '+t.n+', '+t.w+'. ')+pick(PRAISE_VI);
+    else if(cat.id==='abc'&&isPic) line='Yes! '+t.w+' starts with '+SAY[t.l]+'! '+pick(PRAISE);
+    speak(line,{vi:VNQ});
     state.timer=setTimeout(function(){
       q.i++;
       if(q.i>=q.total) finishQuiz(); else { renderQuiz(); wireHeader(); }
@@ -829,7 +911,7 @@ function choose(i,btn){
   }else{
     btn.classList.add('bad','dim'); btn.disabled=true;
     sfx.boop();
-    speak('Oops! Try again.');
+    speak(cat.id==='vnabc'?'Ôi! Con thử lại nhé.':'Oops! Try again.',{vi:cat.id==='vnabc'});
     clearTimeout(q.repeat);
     q.repeat=setTimeout(function(){ if(!q.locked) askQuestion(cat,t,q.mode); },1900);
   }
@@ -837,12 +919,13 @@ function choose(i,btn){
 function finishQuiz(){
   state.screen='done'; render();
   sfx.cheer(); confetti(40);
-  speak('Great job! You got '+state.quiz.score+' stars!');
+  if(CATS[state.cat].id==='vnabc') speak('Giỏi quá! Con được '+state.quiz.score+' ngôi sao!',{vi:true});
+  else speak('Great job! You got '+state.quiz.score+' stars!');
 }
 function renderDone(){
   var q=state.quiz;
   app.innerHTML=header(CATS[state.cat].name,CATS[state.cat].icon,true)+
-   '<main class="done"><div class="trophy">🏆</div><h2>Great job!</h2>'+
+   '<main class="done"><div class="trophy">🏆</div><h2>'+(CATS[state.cat].id==='vnabc'?'Giỏi quá!':'Great job!')+'</h2>'+
    '<div class="won">'+new Array(q.score+1).join('⭐')+'</div>'+
    '<div class="foot" style="width:100%"><button class="big stk" id="again">🔁 Again</button>'+
    '<button class="big mint stk" id="learnBtn">📖 Learn</button></div></main>';
@@ -967,25 +1050,28 @@ function micOverlay(o){
     '<div class="ovWord'+(o.long?' long':'')+'">'+o.textHtml+'</div>'+(o.vi?'<div class="ovVi">'+esc(o.vi)+'</div>':'')+
     '<div class="micWrap"><div class="micRing"></div><div class="micRing r2"></div><button class="micBtn" id="micBtn" aria-label="Say it">🎤</button></div>'+
     '<div class="bars"><i></i><i></i><i></i><i></i><i></i></div>'+
-    '<div class="msg" id="ovMsg">Listen…</div>'+
+    '<div class="msg" id="ovMsg">'+(o.lang==='vi'?'Nghe nhé…':'Listen…')+'</div>'+
     '<div class="foot"><button class="big stk" id="ovAgain">🔁 Again</button>'+(o.onNext?'<button class="big mint stk" id="ovNext">Next ▶</button>':'')+'</div></div>';
   document.body.appendChild(ov);
   var msg=function(t){ var m=$('#ovMsg'); if(m) m.textContent=t; };
   var advance=function(){ if(o.onNext) state.timer=setTimeout(function(){ if(document.body.contains(ov)) o.onNext(); },2600); };
-  var celebrate=function(text,say){ msg(text); sfx.cheer(); confetti(30); addStar(); speak(say); advance(); };
+  var V=o.lang==='vi';
+  var T=V?{l:'👂 Nghe nhé…',y:'🎤 Đến lượt con!',ok:'🌟 Đúng rồi!',gt:'🌟 Con nói giỏi quá!',gts:'Con nói giỏi quá!',re:'Thử lại 🎤',res:'Mình chưa nghe rõ. Con nói lại nhé!',tr:'Gần đúng rồi! 💪',trs:'Gần đúng rồi! Con nghe và nói lại nhé.'}
+         :{l:'👂 Listen…',y:'🎤 Your turn!',ok:'🌟 Yes!',gt:'🌟 Great talking!',gts:'Great talking! Well done!',re:'Try again 🎤',res:'I could not hear you. Try again!',tr:'Good try! 💪',trs:'Good try! Listen and try again.'};
+  var celebrate=function(text,say){ msg(text); sfx.cheer(); confetti(30); addStar(); speak(say,{vi:V}); advance(); };
   async function round(){
     var rid=begin();
     var alive=function(){ return rid===sayId && document.body.contains(ov); };
-    ov.classList.remove('listening'); msg('👂 Listen…');
-    await speak(o.model,{rate:o.rate}); if(!alive()) return;
-    msg('🎤 Your turn!'); ov.classList.add('listening'); sfx.pop();
+    ov.classList.remove('listening'); msg(T.l);
+    await speak(o.model,{rate:o.rate,vi:V}); if(!alive()) return;
+    msg(T.y); ov.classList.add('listening'); sfx.pop();
     await wait(200); if(!alive()) return;
-    var r=await listen(o.listenMs||4500); if(!alive()) return;
+    var r=await listen(o.listenMs||4500,o.lang); if(!alive()) return;
     ov.classList.remove('listening');
-    if(!r.supported){ celebrate('🌟 Great talking!','Great talking! Well done!'); }
-    else if(o.match(r.heard)){ celebrate('🌟 Yes!',o.okSay); }
-    else if(!r.heard.length){ msg('Try again 🎤'); await speak('I could not hear you. Try again!'); }
-    else{ msg('Good try! 💪'); sfx.ding(2); await speak('Good try! Listen and try again.'); }
+    if(!r.supported){ celebrate(T.gt,T.gts); }
+    else if(o.match(r.heard)){ celebrate(T.ok,o.okSay); }
+    else if(!r.heard.length){ msg(T.re); await speak(T.res,{vi:V}); }
+    else{ msg(T.tr); sfx.ding(2); await speak(T.trs,{vi:V}); }
   }
   $('#ovClose').onclick=function(){ sfx.pop(); closeOverlay(); };
   $('#ovAgain').onclick=function(){ sfx.pop(); round(); };
